@@ -1,18 +1,20 @@
 package com.ighor.shopping_cart.service.serviceInt;
 
+import com.ighor.shopping_cart.dto.request.AddProductRequest;
+import com.ighor.shopping_cart.dto.request.UpdateProductRequest;
 import com.ighor.shopping_cart.entity.Product;
 
 import java.util.List;
 
 public interface IProductService {
 
-    Product addProduct(Product product);
+    Product addProduct(AddProductRequest addProductRequest);
 
     Product getProductById(Long productId);
 
     void deleteProductById(Long productId);
 
-    void updateProduct(Product product, Long productId);
+    Product updateProduct(UpdateProductRequest request, Long productId);
 
     List<Product> getAllProducts();
 
