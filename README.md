@@ -3,4 +3,4 @@
 ## Todo List 
 - Finish ProductController
 - Add all the necessary Dtos
-- Test basic function with Postman
+- Test app endpoints with Postman
