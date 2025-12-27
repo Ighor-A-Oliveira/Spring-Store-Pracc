@@ -10,11 +10,10 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-<<<<<<< HEAD
-=======
+
     Optional<Product> findById(Long id);
 
->>>>>>> a38cd4f (Add image/category/product DTOs, repositories, and services)
+
     List<Product> findByCategory_Name(String categoryName);
 
     List<Product> findByBrand(String brand);
@@ -26,4 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByBrandAndName(String brand, String name);
 
     Long countByBrandAndName(String brand, String name);
+
+    boolean existsByNameAndBrand(String name, String brand);
 }

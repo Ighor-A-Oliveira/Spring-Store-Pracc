@@ -9,5 +9,5 @@ import java.util.List;
 public class AddCategoryRequest {
     private Long id;
     private String name;
-    private List<Product> products;
+    private List<Long> productIds;
 }

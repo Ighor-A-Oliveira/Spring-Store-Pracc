@@ -10,5 +10,5 @@ public class AddImageRequest {
     private String fileType;
     private byte[] image;
     private String downloadUrl;
-    private Product product;
+    private Long productId;
 }

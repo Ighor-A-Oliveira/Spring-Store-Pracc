@@ -4,6 +4,7 @@ import com.ighor.shopping_cart.dto.request.AddProductRequest;
 import com.ighor.shopping_cart.dto.request.UpdateProductRequest;
 import com.ighor.shopping_cart.entity.Category;
 import com.ighor.shopping_cart.entity.Product;
+import com.ighor.shopping_cart.exception.AlreadyExistsException;
 import com.ighor.shopping_cart.exception.CategoryNotFoundException;
 import com.ighor.shopping_cart.exception.ProductNotFoundException;
 import com.ighor.shopping_cart.repository.CategoryRepository;
@@ -26,41 +27,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product addProduct(AddProductRequest request ) {
-
-<<<<<<< HEAD
-        //Checking if the category already exists in the db
-        Category category = Optional.ofNullable(
-                //We access cat repo to see if we get a match
-                categoryRepository.findByName(request.getCategory().getName()))
-=======
-        //Checking if the category already exists in the db, we cast to Optional so we can throw exception
-        Category category = Optional.ofNullable(
-                        //We access catRepo to see if we get a match
-                        categoryRepository.findByName(request.getCategory().getName()))
->>>>>>> a38cd4f (Add image/category/product DTOs, repositories, and services)
-                //If not we create a new category
+    public Product addProduct(AddProductRequest request) {
+        if (productExists(request.getName(), request.getBrand())){
+            throw new AlreadyExistsException(request.getBrand() +" "+request.getName()+ " already exists, you may update this product instead!");
+        }
+        Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
                     return categoryRepository.save(newCategory);
                 });
-
         request.setCategory(category);
+        return productRepository.save(createProduct(request, category));
+    }
 
-
-<<<<<<< HEAD
-        //Saving to db
-
-
-        //Log will be here
-
-        //Returning new product
-=======
-        //Log will be here
-
-        //Returning new product while saving to db
->>>>>>> a38cd4f (Add image/category/product DTOs, repositories, and services)
-        return productRepository.save(createProduct(request,category));
+    private boolean productExists(String name , String brand) {
+        return productRepository.existsByNameAndBrand(name, brand);
     }
 
 
